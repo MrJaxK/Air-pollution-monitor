@@ -10,7 +10,7 @@
 
 ### ArduinoCode
 ***
-*Air_pollution_monitor.ino* is the main part of this project. There are two main functions in our machine:
+`Air_pollution_monitor.ino` is the main part of this project. There are two main functions in our machine:
 * Real-time monitoring 
 * Sending data to server
 
@@ -34,11 +34,11 @@ This folder contains our own library which is based on ESP8266.h. This Lib makes
 ### Web
 ***
 This folder contains codes on the server.
-* *get_data.php* receives data from Arduino, then make a new file contains different aspects of data. It also maintains a *list.txt* which contains data's file name.
-* *airquility.html* sends request to *send_data.php*, then show the latest air condition.
-* *ShowData.sh* shows all of the data the server got with the name of each field.
-* *refreshlist.sh* is used for refresh *list.txt* after you delete some data files.
-* *airquality_scraper.py* can automatically get data from a free API. Meanwhile, it creates a text file that is named after the city , the pulltant and the time the data is collected.  For example, "博州_CO_9:00". Then, the data is automatically written in the file.
+* `get_data.php` receives data from Arduino, then make a new file contains different aspects of data. It also maintains a `list.txt` which contains data's file name.
+* `airquility.html` sends request to *send_data.php*, then show the latest air condition.
+* `ShowData.sh` shows all of the data the server got with the name of each field.
+* `refreshlist.sh` is used for refresh *list.txt* after you delete some data files.
+* `airquality_scraper.py` can automatically get data from a free API. Meanwhile, it creates a text file that is named after the city , the pulltant and the time the data is collected.  For example, "博州_CO_9:00". Then, the data is automatically written in the file.
 
 
 
