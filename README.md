@@ -1,0 +1,4 @@
+#Air quality analyzer
+
+Air quality analyzer is an electronic based portable device made in order to measure the air quality. This portable device can detect air quality at any place. Specially places where we cannot obtain the air quality data which is obtained using weather stations. Even though, the air quality is measured outdoors using weather stations, people don’t care about the air quality indoors. Most people think that staying indoors is very suitable when there is air pollution outside. But there is a number of harmful gases present even indoors. The air quality data obtained is sent to a website and then saved for analysis. Several gas sensors are used in this device to detect the different kinds of harmful gases present in the atmosphere. The main feature of this device is the cost effectiveness when compared with the other detectors currently available in the market.
+
