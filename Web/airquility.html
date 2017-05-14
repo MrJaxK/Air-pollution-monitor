@@ -1,0 +1,108 @@
+<!--
+* @file airquility.html
+* @author 风之笑 <bh1517zhr@163.com>  Mr.K <1061494593@qq.com>
+* @date 2017
+*
+*MIT License
+*
+*Copyright (c) 2017 风之笑
+*
+*Permission is hereby granted, free of charge, to any person obtaining a copy
+*of this software and associated documentation files (the ""), to deal
+*in the Software without restriction, including without limitation the rights
+*to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*copies of the Software, and to permit persons to whom the Software is
+*furnished to do so, subject to the following conditions:
+*
+*The above copyright notice and this permission notice shall be included in all
+*copies or substantial portions of the Software.
+*
+*THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+*IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+*FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+*AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+*LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+*OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+*SOFTWARE.
+*/
+-->
+<html>
+<script>
+    window.gas_lpg;
+    window.gas_co;
+    window.gas_smoke;
+    window.temperature;
+    window.humidity;
+    window.dustdensity;
+</script>
+<head>
+  <meta http-equiv="refresh" content="20">
+	<meta charset="utf-8">
+	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js">
+	</script><script type="text/javascript">
+	(function(){  $.get("http://139.199.118.226/Mr.K/send_data.php",function(data,status){
+        var str=data;
+        var str_cut=str.split(" ");
+        gas_lpg=(parseInt(str_cut[2]));
+        gas_co=(parseInt(str_cut[3]));
+        gas_smoke=(parseInt(str_cut[4]));
+        temperature=(parseInt(str_cut[5]));
+        humidity=(parseInt(str_cut[6]));
+        dustdensity=(parseInt(str_cut[7]));
+        //alert(humidity);
+    });})();
+</script>
+	<title>Airquality</title>
+</head><body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="height:800px"></div>
+<!-- ECharts单文件引入 -->
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });         // 使用
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+			var myChart = ec.init(document.getElementById('main'));
+			var option = {
+            tooltip: {
+                show: true
+            },
+            legend: {
+                data:['index']
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['GAS_PPG','GAS_CO','GAS_SMOKE','temperature','humidity','dustdensity']
+                }
+            ],
+                yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+                series : [
+                {
+                    "name":"index",
+                    "type":"bar",
+                    "data":[window.gas_lpg,window.gas_co,window.gas_smoke,window.temperature,window.humidity,window.dustdensity]
+                }
+            ]
+        };                 // 为echarts对象加载数据
+    myChart.setOption(option);
+    }
+    );
+</script>
+
+</body>
+</html>
