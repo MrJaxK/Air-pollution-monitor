@@ -25,11 +25,10 @@
  *OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *SOFTWARE.
  */
-#include"WiFi.h"
+#include"WiFiLib/WiFi.h"
 #include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include <dht.h>
-
+#include "ExternalLib/LiquidCrystal_I2C/LiquidCrystal_I2C.h"
+#include "ExternalLib/dht.h"
 dht DHT;
 
 #define DHT11_PIN 7
