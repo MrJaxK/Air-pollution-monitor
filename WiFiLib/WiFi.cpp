@@ -34,37 +34,60 @@ ESP8266 wifi(mySerial);
 void init_ESP8266()
 {
   if (wifi.setOprToStationSoftAP()) 
+   {
+    #ifdef _DEBUG_
     Serial.print("to station + softap ok\r\n");
+    #endif
+   }
   else 
+   {
+    #ifdef _DEBUG_
     Serial.print("to station + softap err\r\n");
-  
+    #endif
+   }
 
   if (wifi.joinAP(SSID, PASSWORD))//Join AP
   {      
+    #ifdef _DEBUG_
     Serial.print("Join AP success\r\n");  
     Serial.print("IP: ");
     Serial.println(wifi.getLocalIP().c_str());
+    #endif
   } 
   else 
+   {
+    #ifdef _DEBUG_
     Serial.print("Join AP failure\r\n");
-  
+    #endif
+   }
 
   if (wifi.disableMUX()) 
-    Serial.print("single ok\r\n");
+    {
+      #ifdef _DEBUG_
+      Serial.print("single ok\r\n");
+      #endif
+    }
   else 
-    Serial.print("single err\r\n");
-  
+    {
+      #ifdef _DEBUG_
+      Serial.print("single err\r\n");
+      #endif
+    }    
+  #ifdef _DEBUG_
   Serial.print("setup end\r\n");
+  #endif
 }
 
 
 
-void updateSensorData(float *Array, int ArrayLength,String postUrl/*="/Mr.K/get_data.php?0="*/)
+String updateSensorData(float *Array, int ArrayLength,String postUrl/*="/Mr.K/get_data.php?0="*/)
 {
   if(wifi.createTCP(HOST_NAME,HOST_PORT))//create tcp, if fail, don't send data
   {
     String postString;
+    #ifdef _DEBUG_
     Serial.print("create tcp ok \r\n");
+    #endif
     postString="GET ";
     postString += postUrl;
     char tempc[15]={0};
@@ -82,18 +105,69 @@ void updateSensorData(float *Array, int ArrayLength,String postUrl/*="/Mr.K/get_
     
     postString+=" HTTP/1.0\r\n\r\n";
     const char *postArray=postString.c_str();
+    wifi.send((const uint8_t*)postArray, strlen(postArray));  
+    #ifdef _DEBUG_
     Serial.println(postArray);
-    wifi.send((const uint8_t*)postArray, strlen(postArray));    
     Serial.println("send success");   
-    if (wifi.releaseTCP())                                  
+    #endif 
+
+    
+    String dataGetFromServer="";
+    int counter=0;
+    while(mySerial.available()>0)
+    {
+      
+      ++counter;
+      String data="";
+      if(counter==11)
+        {
+          dataGetFromServer=mySerial.readStringUntil('\n');
+          #ifdef _DEBUG_
+          Serial.print(counter);
+          Serial.println(dataGetFromServer);
+          #else
+          delay(3);
+          #endif
+          
+        }
+      else
+        {
+          data=mySerial.readStringUntil('\n');
+          #ifdef _DEBUG_
+          Serial.print(counter);
+          Serial.println(data);
+          #else
+          delay(3);
+          #endif
+        }
+    }
+    #ifdef _DEBUG_
+    Serial.print("Final data get from server is :");
+    Serial.println(dataGetFromServer);
+    #endif
+
+    
+    if (wifi.releaseTCP())  
+      {                                
+        #ifdef _DEBUG_
         Serial.print("release tcp ok\r\n");
+        #endif
+      }
     else 
+      {
+        #ifdef _DEBUG_
         Serial.print("release tcp err\r\n");
+        #endif
+      }
         
-      postArray = NULL;                                       //release
-  
+     postArray = NULL;                                       //release
+    return dataGetFromServer;
   }
   else 
+   {
+    #ifdef _DEBUG_
     Serial.print("create tcp err\r\n");
+    #endif
+   }
  }
 

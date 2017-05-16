@@ -36,14 +36,15 @@
 
 //#define SSID "AndroidAP"
 //#define PASSWORD "ogbq1848"
-#define SSID "AndroidAP"
-#define PASSWORD "ogbq1848"
+#define SSID "mmp"
+#define PASSWORD "13141314"
 #define HOST_NAME "139.199.118.226"
 #define HOST_PORT 80
 // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
 #define WLAN_SECURITY   WLAN_SEC_WPA2
 
+#define _DEBUG_  //debug settings and show status by Serial
 
 void init_ESP8266();
-void updateSensorData(float *Array,int ArrayLength,String postUrl="/Mr.K/get_data.php?0=");
+String updateSensorData(float *Array,int ArrayLength,String postUrl="/Mr.K/get_data.php?0=");
 #endif
