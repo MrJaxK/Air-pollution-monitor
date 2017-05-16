@@ -59,14 +59,14 @@ void init_ESP8266()
 
 
 
-void updateSensorData(float *Array, int ArrayLength)
+void updateSensorData(float *Array, int ArrayLength,String postUrl/*="/Mr.K/get_data.php?0="*/)
 {
   if(wifi.createTCP(HOST_NAME,HOST_PORT))//create tcp, if fail, don't send data
   {
     String postString;
     Serial.print("create tcp ok \r\n");
     postString="GET ";
-    postString += "/Mr.K/get_data.php?0=";
+    postString += postUrl;
     char tempc[15]={0};
     dtostrf(Array[0],1,4,tempc);
     postString+=tempc;

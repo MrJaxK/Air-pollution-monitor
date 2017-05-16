@@ -28,7 +28,7 @@
 #ifndef WIFI_PART
 #define WIFI_PART
 
-#include "./ESP8266.h"
+#include "../ExternalLib/ESP8266.h"
 #include <SoftwareSerial.h>
 
 
@@ -45,5 +45,5 @@
 
 
 void init_ESP8266();
-void updateSensorData(float *Array,int ArrayLength);
+void updateSensorData(float *Array,int ArrayLength,String postUrl="/Mr.K/get_data.php?0=");
 #endif
